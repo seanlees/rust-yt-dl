@@ -6,11 +6,14 @@ extern crate rocket;
 
 use rocket::{get, Rocket, routes};
 
+use rocket_contrib::serve::StaticFiles;
+
 #[get("/")]
 fn hello() -> &'static str {
     return "hello rocket";
 }
 
 fn main() {
-    rocket::ignite().mount("/", routes![hello]).launch();
+    rocket::ignite().mount("/", routes![hello])
+        .mount("/static", StaticFiles::from("resource")).launch();
 }

@@ -6,6 +6,7 @@
 - 静态资源嵌入binary: https://lib.rs/crates/rust-embed
 - https://blog.csdn.net/u012067469/article/details/104082331/
 
+https://zhuanlan.zhihu.com/p/133524209
 
 ### 其他
 - https://github.com/ytdl-org/youtube-dl/
