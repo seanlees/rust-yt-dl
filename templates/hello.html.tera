@@ -1,0 +1,6 @@
+<html>
+  <head></head>
+  <body>
+    <p> Welcome to the site {{name}} ! </p>
+  </body>
+</html>
