@@ -7,4 +7,5 @@ use rocket::response::{Redirect, Flash};
         name: String::from("login user"),
     };
     cookies.add_private(Cookie::new("login user", user.name));
-}*/
+}
+*/
