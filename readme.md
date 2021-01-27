@@ -17,6 +17,7 @@ https://zhuanlan.zhihu.com/p/133524209
 
 ### 问题
 - 如何把静态资源包含在二进制文件中：
+  example: https://github.com/pyros2097/rust-embed/blob/master/examples/rocket.rs
 
   - 方法1：rocket提供的static_resources_initialize,但是必须包每个静态文件全部写出来，不实用
   - 方法2：rocket-embed：https://github.com/pyros2097/rust-embed 查看了官方例子，是把静态资源映射一下

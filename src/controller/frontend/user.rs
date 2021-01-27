@@ -1,11 +1,27 @@
 use rocket::http::{Cookies, Cookie};
 use rocket::response::{Redirect, Flash};
+use std::collections::HashMap;
+use rocket_contrib::templates::Template;
+use crate::request::user_request::User;
 
-/*pub fn login(mut cookies: Cookies) -> std::result::Result<Redirect, Flash<Redirect>> {
-    //获取用户，可以通过创建一个LoginForm类型，并为之实现FromRequest trait，来传入登录信息
-    let user = User {
-        name: String::from("login user"),
-    };
-    cookies.add_private(Cookie::new("login user", user.name));
+
+#[get("/login")]
+pub fn login(mut cookies: Cookies) -> Template {
+    let context: HashMap<&str, &str> = [("ctx", "")]
+        .iter().cloned().collect();
+    Template::render("login", &context)
 }
-*/
+
+
+#[get("/auth/login")]
+pub fn login1(mut cookies: Cookies) -> std::result::Result<Redirect, Flash<Redirect>> {
+    let user = User {
+        uid: "".to_string(),
+        uname: String::from("abc"),
+        pwd: "".to_string(),
+        pwdConfirm: "".to_string(),
+    };
+    cookies.add_private(Cookie::new("sessions_auth", user.uname));
+    //println!("{:?}", request.cookies().get_private("token"));
+    Ok(Redirect::to(uri!(super::user::login)))
+}
