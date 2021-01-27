@@ -12,15 +12,17 @@ pub mod middleware {
 }
 
 pub mod controller {
-    pub mod frontend {
-        pub mod user;
-    }
-
+    pub mod frontend {}
     pub mod static_files;
     pub mod index;
+    pub mod user;
 }
 
 pub mod request {
-    pub mod user_request ;
+    pub mod request_user;
+    pub mod authenticated_user;
 }
 
+pub mod view_model{
+    pub mod login_form;
+}

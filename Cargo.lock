@@ -1056,6 +1056,7 @@ dependencies = [
  "rocket_contrib",
  "rust-embed",
  "serde",
+ "serde_derive",
  "serde_json",
  "uuid",
 ]
