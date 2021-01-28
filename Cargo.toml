@@ -21,3 +21,6 @@ uuid = { version = "0.8", features = ["serde", "v4"] }
 #模板引擎
 #askama = { version = "0.10", default-features = false, features = ["with-rocket", "mime", "mime_guess"] }
 rust-embed = "5.9.0"
+
+
+confy = "0.4.0"

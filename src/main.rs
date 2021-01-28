@@ -17,7 +17,7 @@ use rust_embed::RustEmbed;
 
 use rust_yt_dl::controller::{static_files, index};
 use rust_yt_dl::controller::user;
-
+use rust_yt_dl::config::ConfyConfig;
 
 #[macro_use]
 extern crate rocket;
@@ -38,7 +38,15 @@ fn redirect_root(_req: &Request) -> Template {
     Template::render("index", context)
 }
 
+
 fn main() {
+    // let cfg: ConfyConfig = confy::load("confy_simple_app")?;
+    let file = confy::load("Config")?;
+    println!("The configuration file path is: {:#?}", file);
+    println!("The configuration is:");
+    // println!("{:#?}", cfg);
+
+
     let rocket = rocket::ignite();
     let context_path = rocket.config().get_str("context_path").unwrap_or("/").to_string();
 
@@ -53,6 +61,6 @@ fn main() {
                ])
         .register(catchers![redirect_login])
         //静态资源使用RustEmbed的话，走static_files，下面注释
-        .mount("/static", StaticFiles::from("resource"))
+        .mount("/static", StaticFiles::from("src/resource"))
         .launch();
 }

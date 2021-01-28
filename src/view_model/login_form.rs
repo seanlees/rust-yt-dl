@@ -1,5 +1,3 @@
-use serde::Deserialize;
-use serde::Serialize;
 
 #[derive(Debug, FromForm, Serialize)]
 pub struct LoginForm {

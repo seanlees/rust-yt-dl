@@ -43,8 +43,8 @@ pub fn authenticate(user: AnonymousUser,
 
     if !noLogin {
         let resp = LoginRespJson {
-            code: 99,
-            msg: "未成功登录",
+            code: 0,
+            msg: "登录成功",
             user: LoginResponse {
                 id: 0,
                 uname: "".to_string(),

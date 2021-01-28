@@ -10,7 +10,7 @@ use rust_embed::RustEmbed;
 use rocket::response;
 
 #[derive(RustEmbed)]
-#[folder = "resource/"]
+#[folder = "src/resource/"]
 struct Asset;
 
 #[get("/static/<file..>")]

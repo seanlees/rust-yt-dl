@@ -11,7 +11,7 @@ write_timeout = 5
 log = "normal"
 secret_key = "9EwQXOdyfVOEH+OKRYFSGdF8CKhirx7xrpbkZodshVw="
 limits = { forms = 32768 }
-#template_dir = "src/templates/"
+template_dir = "src/templates/"
 #自定义前缀
 #context_path = "/a"
 
@@ -25,7 +25,7 @@ write_timeout = 5
 log = "normal"
 secret_key = "9EwQXOdyfVOEH+OKRYFSGdF8CKhirx7xrpbkZodshVw="
 limits = { forms = 32768 }
-#template_dir = "src/templates/"
+template_dir = "src/templates/"
 
 [production]
 address = "0.0.0.0"
@@ -37,4 +37,4 @@ write_timeout = 5
 log = "critical"
 secret_key = "9EwQXOdyfVOEH+OKRYFSGdF8CKhirx7xrpbkZodshVw="
 limits = { forms = 32768 }
-#template_dir = "src/templates/"
+template_dir = "src/templates/"

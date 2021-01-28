@@ -1,5 +1,7 @@
 ###说明：
 - 命令：rustup override set nightly 设置为nightly版本。rocket当前版本只能使用nightly版本
+- windows上debug的用这个：rustup override set nightly-x86_64-pc-windows-gnu
+
 
 ### info
 - 官网： https://rocket.rs/v0.4/guide/
