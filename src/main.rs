@@ -46,14 +46,13 @@ fn main() {
         .attach(Template::fairing())
         .mount(&context_path,
                routes![
-               static_files::haddle,
+               //static_files::haddle,
                index::index,
                user::login,
-               user::login1
+               user::authenticate
                ])
         .register(catchers![redirect_login])
+        //静态资源使用RustEmbed的话，走static_files，下面注释
+        .mount("/static", StaticFiles::from("resource"))
         .launch();
-
-    //静态资源使用RustEmbed的话，走static_files，下面注释
-    //.mount("/static", StaticFiles::from("src/resource")).launch();
 }

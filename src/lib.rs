@@ -25,4 +25,5 @@ pub mod request {
 
 pub mod view_model{
     pub mod login_form;
+    pub mod login_resp;
 }

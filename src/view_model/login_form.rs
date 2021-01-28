@@ -1,6 +1,8 @@
+use serde::Deserialize;
+use serde::Serialize;
 
 #[derive(Debug, FromForm, Serialize)]
 pub struct LoginForm {
-    pub email: String,
+    pub uname: String,
     pub password: String,
 }
