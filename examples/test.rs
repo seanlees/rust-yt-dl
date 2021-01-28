@@ -21,7 +21,7 @@ impl Default for ConfyConfig {
 }
 
 fn main() -> Result<(), confy::ConfyError> {
-    let cfg = confy::load("Config")?;
+    //let cfg = confy::load("Config")?;
     let cfg: ConfyConfig = confy::load_path("Config.toml")?;
     println!("The configuration is:");
     println!("{:#?}", cfg);
