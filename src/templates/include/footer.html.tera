@@ -1,0 +1,5 @@
+<footer class="footer">
+    <div class="well text-center">
+        <p><a href="https://gitee.com/sirgo/rust-yt-dl" target="_blank">copyleft</a></p>
+    </div>
+</footer>

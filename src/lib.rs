@@ -9,7 +9,6 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
 
-
 pub mod middleware {
     pub mod counter;
 }
@@ -17,14 +16,14 @@ pub mod middleware {
 pub mod controller {
     pub mod frontend {}
 
-    pub mod static_files;
     pub mod index;
-    pub mod user;
+    pub mod login;
+    pub mod static_files;
 }
 
 pub mod request {
-    pub mod request_user;
     pub mod authenticated_user;
+    pub mod request_user;
 }
 
 pub mod view_model {

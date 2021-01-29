@@ -1,0 +1,3 @@
+login_name = 'admin'
+password = '123'
+foo = 42

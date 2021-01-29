@@ -1,28 +1,27 @@
-use rocket::outcome::IntoOutcome;
 use rocket::http::{Cookies, Status};
-use rocket::request;
-use rocket::response::Redirect;
-use serde::{Serialize, Deserialize, ser};
-use rocket::request::{FromRequest, Outcome, Request};
-
-use crate::controller::user;
+use rocket::outcome::IntoOutcome;
 use rocket::outcome::Outcome::{Failure, Success};
+use rocket::request;
+use rocket::request::{FromRequest, Outcome, Request};
+use rocket::response::Redirect;
 use serde::ser::SerializeStruct;
+use serde::{ser, Deserialize, Serialize};
 
+use crate::controller::login;
 
 #[derive(Debug, Deserialize)]
 pub struct User {
     pub id: i32,
     pub uname: String,
+    #[serde(skip_serializing, skip_deserializing)]
     pub pwd: String,
-    pub pwdConfirm: String,
     pub email: String,
 }
 
 impl ser::Serialize for User {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
-        where
-            S: ser::Serializer,
+    where
+        S: ser::Serializer,
     {
         let mut s = serializer.serialize_struct("User", 6)?;
         s.serialize_field("id", &self.id)?;
@@ -33,6 +32,3 @@ impl ser::Serialize for User {
         s.end()
     }
 }
-
-
-

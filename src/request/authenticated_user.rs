@@ -1,12 +1,10 @@
-
 use crate::request::request_user::User;
-use rocket::request::{FromRequest, Outcome};
-use rocket::{Request, request};
-use rocket::outcome::Outcome::{Failure, Success};
 use rocket::http::Status;
+use rocket::outcome::Outcome::{Failure, Success};
+use rocket::request::{FromRequest, Outcome};
+use rocket::{request, Request};
 use serde::Deserialize;
 use serde::Serialize;
-
 
 pub struct AuthenticatedUser(pub User);
 
@@ -42,7 +40,7 @@ impl<'a, 'r> FromRequest<'a, 'r> for AnonymousUser {
 
         if let Some(cookie) = cookies.get_private("sessions_auth") {
             let user: Result<User, _> = serde_json::from_str(cookie.value());
-            if user.is_ok() {
+            if user.is_err() {
                 return Failure((Status::raw(599), ()));
             }
         }
@@ -52,7 +50,6 @@ impl<'a, 'r> FromRequest<'a, 'r> for AnonymousUser {
             uname: "".to_owned(),
             email: "".to_owned(),
             pwd: "".to_owned(),
-            pwdConfirm: "".to_string()
         }))
     }
 }
