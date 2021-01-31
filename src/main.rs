@@ -19,7 +19,8 @@ use rocket_contrib::templates::Template;
 
 use rust_yt_dl::config::ConfyConfig;
 use rust_yt_dl::controller::login;
-use rust_yt_dl::controller::{index, static_files};
+use rust_yt_dl::controller::*;
+use rust_yt_dl::DbConn;
 
 #[catch(401)]
 fn redirect_login(_req: &Request) -> Template {
@@ -47,6 +48,7 @@ fn main() -> Result<(), confy::ConfyError> {
     rocket
         .manage(cfg)
         .attach(Template::fairing())
+        .attach(DbConn::fairing())
         .mount(
             &context_path,
             routes![
@@ -55,6 +57,7 @@ fn main() -> Result<(), confy::ConfyError> {
                 login::login,
                 login::authenticate,
                 login::logout,
+                list::list,
             ],
         )
         .register(catchers![redirect_login, redirect_root])
