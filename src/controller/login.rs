@@ -18,6 +18,7 @@ use serde::ser::SerializeStruct;
 use rocket_contrib::json::Json;
 use rocket::State;
 use crate::config::ConfyConfig;
+use crate::DbConn;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRespJson<'a> {
