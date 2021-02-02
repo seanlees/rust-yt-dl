@@ -16,6 +16,10 @@ https://zhuanlan.zhihu.com/p/133524209
 - https://github.com/oldiy/youtube-dl-webui-cn
 - https://blog.csdn.net/lanchunhui/article/details/79830230
 
+### diesel 使用
+- 安装diesel-cli， 官网：https://github.com/diesel-rs/diesel/tree/master/diesel_cli
+- rocket默认集成diesel, 网址：https://api.rocket.rs/v0.4/rocket_contrib/databases/index.html#usage
+
 
 ### 问题
 - 如何把静态资源包含在二进制文件中：

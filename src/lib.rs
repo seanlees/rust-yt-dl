@@ -9,6 +9,11 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
 
+use rocket_contrib::databases::diesel;
+
+#[database("my_db")]
+pub struct DbConn(diesel::SqliteConnection);
+
 pub mod middleware {
     pub mod counter;
 }
@@ -19,6 +24,7 @@ pub mod controller {
     pub mod index;
     pub mod login;
     pub mod static_files;
+    pub mod list;
 }
 
 pub mod request {
@@ -32,3 +38,4 @@ pub mod view_model {
 }
 
 pub mod config;
+pub mod dict;

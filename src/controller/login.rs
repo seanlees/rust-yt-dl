@@ -3,21 +3,21 @@ use std::collections::HashMap;
 use rocket::http::{Cookie, Cookies};
 use rocket::request::Form;
 use rocket::response::{Flash, Redirect};
-use rocket_contrib::templates::tera::Context;
 use rocket_contrib::templates::Template;
+use rocket_contrib::templates::tera::Context;
 
 use crate::request::authenticated_user::{AnonymousUser, AuthenticatedUser};
 use crate::request::request_user::User;
 use crate::view_model::login_form::LoginForm;
 use crate::view_model::login_resp::LoginResponse;
 
-use crate::config::ConfyConfig;
-use rocket::State;
-use rocket_contrib::json::Json;
-use serde::ser::SerializeStruct;
+use serde::{Deserialize, ser, Serializer};
 use serde::Serialize;
-use serde::{ser, Deserialize, Serializer};
 use serde_json::json;
+use serde::ser::SerializeStruct;
+use rocket_contrib::json::Json;
+use rocket::State;
+use crate::config::ConfyConfig;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRespJson<'a> {
@@ -26,24 +26,23 @@ pub struct LoginRespJson<'a> {
     user: LoginResponse,
 }
 
+
 #[get("/login")]
 pub fn login(user: AnonymousUser, mut cookies: Cookies) -> Template {
     let mut context = Context::new();
     context.insert("user", &user);
-
     Template::render("login", &context)
 }
 
-#[post("/login", data = "<form>")]
-pub fn authenticate<'a>(
-    user: AnonymousUser,
-    cfg: State<ConfyConfig>,
-    form: Form<LoginForm>,
-    mut cookies: Cookies,
-) -> Json<LoginRespJson<'a>> {
-    let noLogin = cookies.get("sessions_auth").is_none();
 
-    //无需判断sessions_auth的值是否正确，AuthenticatedUser的from_request序列化时会解析
+#[post("/login", data = "<form>")]
+pub fn authenticate<'a>(user: AnonymousUser,
+                        cfg: State<ConfyConfig>,
+                        form: Form<LoginForm>,
+                        mut cookies: Cookies)
+                        -> Json<LoginRespJson<'a>> {
+    let noLogin: bool = cookies.get("sessions_auth").is_none();
+
     if !noLogin {
         let resp = LoginRespJson {
             code: 0,
@@ -62,7 +61,7 @@ pub fn authenticate<'a>(
     if &req_uname != &&cfg.login_name || &req_pwd != &&cfg.password {
         let resp = LoginRespJson {
             code: 99,
-            msg: "登录失败,用户名或密码错误",
+            msg: "登录失败,用户名或密码错误!",
             user: LoginResponse {
                 id: 0,
                 uname: "".to_string(),
@@ -71,17 +70,19 @@ pub fn authenticate<'a>(
         return Json(resp);
     }
 
-    let sessionAuth = serde_json::to_string(&User {
+    let user = &User {
         id: 0,
         uname: req_uname.to_string(),
         pwd: "".to_string(),
         email: "".to_string(),
-    });
+    };
 
-    let cookie = Cookie::build("sessions_auth".to_owned(), sessionAuth.unwrap())
-        .path("/")
-        .finish();
-    cookies.add_private(cookie);
+    let authSession =
+        Cookie::build("sessions_auth".to_owned(), serde_json::to_string(user).unwrap())
+            .path("/")
+            .finish();
+
+    cookies.add_private(authSession);
 
     return Json(LoginRespJson {
         code: 0,
@@ -94,7 +95,6 @@ pub fn authenticate<'a>(
 }
 
 #[get("/logout")]
-pub fn logout<'a>(user: AuthenticatedUser, mut cookies: Cookies) -> Redirect {
-    cookies.remove_private(Cookie::named("sessions_auth"));
+pub fn logout(user: AuthenticatedUser) -> Redirect {
     Redirect::to(uri!(login))
 }

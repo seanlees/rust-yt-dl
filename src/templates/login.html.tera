@@ -66,10 +66,6 @@
         <p><a href="javascript:void(0)" target="_blank">copyleft</a></p>
     </div>
 </footer>
-<script type="text/javascript" src="static/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="static/js/validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="static/js/layer/layer.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("form").validate({
