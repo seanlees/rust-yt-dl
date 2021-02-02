@@ -3,21 +3,21 @@ use std::collections::HashMap;
 use rocket::http::{Cookie, Cookies};
 use rocket::request::Form;
 use rocket::response::{Flash, Redirect};
-use rocket_contrib::templates::Template;
 use rocket_contrib::templates::tera::Context;
+use rocket_contrib::templates::Template;
 
 use crate::request::authenticated_user::{AnonymousUser, AuthenticatedUser};
 use crate::request::request_user::User;
 use crate::view_model::login_form::LoginForm;
 use crate::view_model::login_resp::LoginResponse;
 
-use serde::{Deserialize, ser, Serializer};
-use serde::Serialize;
-use serde_json::json;
-use serde::ser::SerializeStruct;
-use rocket_contrib::json::Json;
-use rocket::State;
 use crate::config::ConfyConfig;
+use rocket::State;
+use rocket_contrib::json::Json;
+use serde::ser::SerializeStruct;
+use serde::Serialize;
+use serde::{ser, Deserialize, Serializer};
+use serde_json::json;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRespJson<'a> {
@@ -26,7 +26,6 @@ pub struct LoginRespJson<'a> {
     user: LoginResponse,
 }
 
-
 #[get("/login")]
 pub fn login(user: AnonymousUser, mut cookies: Cookies) -> Template {
     let mut context = Context::new();
@@ -34,13 +33,13 @@ pub fn login(user: AnonymousUser, mut cookies: Cookies) -> Template {
     Template::render("login", &context)
 }
 
-
 #[post("/login", data = "<form>")]
-pub fn authenticate<'a>(user: AnonymousUser,
-                        cfg: State<ConfyConfig>,
-                        form: Form<LoginForm>,
-                        mut cookies: Cookies)
-                        -> Json<LoginRespJson<'a>> {
+pub fn authenticate<'a>(
+    user: AnonymousUser,
+    cfg: State<ConfyConfig>,
+    form: Form<LoginForm>,
+    mut cookies: Cookies,
+) -> Json<LoginRespJson<'a>> {
     let noLogin: bool = cookies.get("sessions_auth").is_none();
 
     if !noLogin {
@@ -77,10 +76,12 @@ pub fn authenticate<'a>(user: AnonymousUser,
         email: "".to_string(),
     };
 
-    let authSession =
-        Cookie::build("sessions_auth".to_owned(), serde_json::to_string(user).unwrap())
-            .path("/")
-            .finish();
+    let authSession = Cookie::build(
+        "sessions_auth".to_owned(),
+        serde_json::to_string(user).unwrap(),
+    )
+    .path("/")
+    .finish();
 
     cookies.add_private(authSession);
 
@@ -95,6 +96,7 @@ pub fn authenticate<'a>(user: AnonymousUser,
 }
 
 #[get("/logout")]
-pub fn logout(user: AuthenticatedUser) -> Redirect {
+pub fn logout<'a>(user: AuthenticatedUser, mut cookies: Cookies) -> Redirect {
+    cookies.remove_private(Cookie::named("sessions_auth"));
     Redirect::to(uri!(login))
 }
