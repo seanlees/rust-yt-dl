@@ -1,5 +1,6 @@
 // Rocket用到的rust的nightly的特性
 #![feature(proc_macro_hygiene, decl_macro)]
+#![allow(proc_macro_derive_resolution_fallback)]
 
 //声明再这里，子模块无需再次生命
 #[macro_use]
@@ -9,7 +10,11 @@ extern crate rocket_contrib;
 #[macro_use]
 extern crate serde_derive;
 
-use rocket_contrib::databases::diesel;
+
+#[macro_use]
+extern crate diesel;
+
+//use rocket_contrib::databases::diesel;
 
 #[database("my_db")]
 pub struct DbConn(diesel::SqliteConnection);
@@ -39,3 +44,5 @@ pub mod view_model {
 
 pub mod config;
 pub mod dict;
+pub mod models;
+pub mod schema;

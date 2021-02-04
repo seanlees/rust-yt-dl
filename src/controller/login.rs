@@ -3,26 +3,21 @@ use std::collections::HashMap;
 use rocket::http::{Cookie, Cookies};
 use rocket::request::Form;
 use rocket::response::{Flash, Redirect};
-use rocket_contrib::templates::tera::Context;
+use rocket::State;
+use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
+use rocket_contrib::templates::tera::Context;
+use serde::{Deserialize, ser, Serializer};
+use serde::ser::SerializeStruct;
+use serde::Serialize;
+use serde_json::json;
 
+use crate::config::ConfyConfig;
+use crate::DbConn;
 use crate::request::authenticated_user::{AnonymousUser, AuthenticatedUser};
 use crate::request::request_user::User;
 use crate::view_model::login_form::LoginForm;
 use crate::view_model::login_resp::LoginResponse;
-
-use crate::config::ConfyConfig;
-use rocket::State;
-use rocket_contrib::json::Json;
-use serde::ser::SerializeStruct;
-use serde::Serialize;
-use serde::{ser, Deserialize, Serializer};
-use serde_json::json;
-use serde::ser::SerializeStruct;
-use rocket_contrib::json::Json;
-use rocket::State;
-use crate::config::ConfyConfig;
-use crate::DbConn;
 
 #[derive(Serialize, Deserialize)]
 pub struct LoginRespJson<'a> {

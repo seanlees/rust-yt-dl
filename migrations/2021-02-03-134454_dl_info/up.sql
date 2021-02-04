@@ -1,5 +1,5 @@
 -- Your SQL goes here
-CREATE TABLE "dl_list"
+CREATE TABLE "dl_info"
 (
     "id"              INTEGER NOT NULL UNIQUE,
     "dl_url"          TEXT    NOT NULL, -- 下载地址
@@ -10,5 +10,7 @@ CREATE TABLE "dl_list"
     "dl_type"         TEXT    NOT NULL, --下载类型：video,audio
     "file_size"       TEXT,             --文件大小
     "file_store_path" TEXT,             --文件存储路径
+    "description"     Text,
+    "completed"       Bool,
     PRIMARY KEY ("id" AUTOINCREMENT)
 );

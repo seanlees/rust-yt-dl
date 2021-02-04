@@ -1,25 +1,29 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use]
+extern crate diesel;
+#[macro_use]
 extern crate rocket;
 #[macro_use]
 extern crate rocket_contrib;
+#[macro_use]
+extern crate serde_derive;
 
 use std::collections::HashMap;
 use std::ffi::OsStr;
 use std::io::Cursor;
 use std::path::PathBuf;
 
+use rocket::{Catcher, get, Request, response, routes};
 use rocket::error::LaunchError;
 use rocket::http::{ContentType, Status};
 use rocket::response::{content, Redirect, Responder};
-use rocket::{get, response, routes, Catcher, Request};
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 
 use rust_yt_dl::config::ConfyConfig;
-use rust_yt_dl::controller::login;
 use rust_yt_dl::controller::*;
+use rust_yt_dl::controller::login;
 use rust_yt_dl::DbConn;
 
 #[catch(401)]

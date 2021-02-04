@@ -1267,6 +1267,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "confy",
+ "diesel",
  "lazy_static",
  "rocket",
  "rocket_codegen",
