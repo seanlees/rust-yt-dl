@@ -23,8 +23,8 @@ use rocket_contrib::templates::Template;
 
 use rust_yt_dl::config::ConfyConfig;
 use rust_yt_dl::controller::*;
-use rust_yt_dl::controller::login;
 use rust_yt_dl::DbConn;
+use rust_yt_dl::util::file_util;
 
 #[catch(401)]
 fn redirect_login(_req: &Request) -> Template {
@@ -42,8 +42,14 @@ fn main() -> Result<(), confy::ConfyError> {
     //自定义配置参数
     let cfg: ConfyConfig = confy::load_path("Config.toml")?;
 
+    //检测存储路径是否存在
+    let store_folder_rst = file_util::get_or_create(&cfg.store_folder);
+    if store_folder_rst.is_err() {
+        panic!("存储路径非法:{}", store_folder_rst.unwrap());
+    }
+
     let rocket = rocket::ignite();
-    let context_path = rocket
+    let context_path = rocket  //另外一种自定义参数,在Rocket.toml
         .config()
         .get_str("context_path")
         .unwrap_or("/")
@@ -66,7 +72,7 @@ fn main() -> Result<(), confy::ConfyError> {
         )
         .register(catchers![redirect_login, redirect_root])
         //静态资源使用RustEmbed的话，走static_files，下面注释
-        .mount("/static", StaticFiles::from("src/resource"))
+        .mount("/static", StaticFiles::from("resources/static"))
         .launch();
 
     Ok(())

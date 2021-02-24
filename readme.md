@@ -1,12 +1,16 @@
 ###说明：
 - 命令：rustup override set nightly 设置为nightly版本。rocket当前版本只能使用nightly版本
-- windows上debug的用这个：rustup override set nightly-x86_64-pc-windows-gnu
+- windows上debug的用这个：rustup override set nightly-x86_64-pc-windows-gnu  , rustup override unset
+-sqlite:  现使用：libsqlite3-sys = { version = "0.9", features = [ "bundled" ] } ； 可尝试：vcpkg install sqlite3:x64-windows
 
-
+rustup override set 1.0.0
+To see the active toolchain use rustup show. To remove the override and use the default toolchain again, rustup override unset
 ### info
 - 官网： https://rocket.rs/v0.4/guide/
 - 静态资源嵌入binary: https://lib.rs/crates/rust-embed
 - https://blog.csdn.net/u012067469/article/details/104082331/
+- tera官网： https://tera.netlify.app/docs/  https://github.com/Keats/tera
+- diesel官网：https://docs.diesel.rs/diesel/ https://github.com/diesel-rs
 
 https://zhuanlan.zhihu.com/p/133524209
 

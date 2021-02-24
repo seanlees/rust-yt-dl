@@ -6,7 +6,7 @@ use uuid::Uuid;
 pub struct ConfyConfig {
     pub login_name: String,
     pub password: String,
-    foo: i64,
+    pub store_folder: String,
 }
 
 impl Default for ConfyConfig {
@@ -14,7 +14,7 @@ impl Default for ConfyConfig {
         ConfyConfig {
             login_name: "admin".to_string(),
             password: Uuid::new_v4().to_string(),
-            foo: 42,
+            store_folder: ".".to_string(),
         }
     }
 }

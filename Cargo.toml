@@ -5,12 +5,20 @@ authors = ["skyline <skyline661@163.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[patch.crates-io]
+#uuid = { git = 'https://github.com/uuid-rs/uuid', branch = '2.0.0' }
+
+#[dependencies.rusqlite]
+#version = "0.11.0"
+#features = ["bundled"]
 
 [dependencies]
-rocket = { version = "0.4.6", default-features = true, features = ["private-cookies"] }
-rocket_codegen = "0.4.6"
-rocket_contrib = { version = "0.4.6", default-features = false, features = ["json", "serde_json", "serve", "handlebars_templates", "tera_templates", "diesel_sqlite_pool"] }
+rocket = { version = "0.4.7", default-features = true, features = ["private-cookies"] }
+rocket_codegen = "0.4.7"
+rocket_contrib = { version = "0.4.7", default-features = false, features = ["json", "serde_json", "serve", "handlebars_templates", "tera_templates", "diesel_sqlite_pool"] }
 diesel = "1.4"
+
+libsqlite3-sys = { version = "0.9", features = [ "bundled" ] }
 
 #序列化库
 serde = { version = "1.0", features = ["derive"] }
@@ -26,6 +34,8 @@ rust-embed = "5.9.0"
 
 #配置文件库
 confy = "0.4.0"
+
+fs_extra="1.2.0"
 
 #静态变量，初始化
 lazy_static = { version = "1.0" }

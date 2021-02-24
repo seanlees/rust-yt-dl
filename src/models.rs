@@ -1,7 +1,7 @@
-use diesel::{self, prelude::*};
+use diesel::{self, prelude::*, sql_query};
 
 use crate::schema::dl_info;
-use crate::schema::dl_info::dsl::{dl_info as all_dl_info, completed as task_completed};
+use crate::schema::dl_info::dsl::{completed as task_completed, dl_info as all_dl_info, dl_type};
 
 #[table_name = "dl_info"]
 #[derive(Serialize, Queryable, Insertable, Debug, Clone)]
@@ -56,6 +56,25 @@ impl DlInfo {
         let new_status = !task.unwrap().completed;
         let updated_task = diesel::update(all_dl_info.find(id));
         updated_task.set(task_completed.eq(new_status)).execute(conn).is_ok()
+    }
+
+    pub fn toggle_with_type(dltype: &String, conn: &SqliteConnection) -> Vec<DlInfo> {
+        /*let info = diesel::sql_query("select * from dl_info where dl_type=")
+            .load(&conn).unwrap();*/
+
+        let query = all_dl_info.filter(dl_info::dl_type.eq(dltype.to_owned()))
+            .order(dl_info::id.desc());
+
+        //debug sql
+        let debug =
+            diesel::debug_query::<diesel::sqlite::Sqlite, _>(&query);
+        println!("toggle_with_type sql : {}", debug);
+
+        let result = query.load::<DlInfo>(conn).expect("Error loading dlInfo");
+
+        println!("result: {}", serde_json::to_string(&result).unwrap());
+
+        result
     }
 
     pub fn delete_with_id(id: i32, conn: &SqliteConnection) -> bool {

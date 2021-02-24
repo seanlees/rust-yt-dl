@@ -40,9 +40,9 @@ pub fn authenticate<'a>(
     form: Form<LoginForm>,
     mut cookies: Cookies,
 ) -> Json<LoginRespJson<'a>> {
-    let noLogin: bool = cookies.get("sessions_auth").is_none();
+    let no_login: bool = cookies.get("sessions_auth").is_none();
 
-    if !noLogin {
+    if !no_login {
         let resp = LoginRespJson {
             code: 0,
             msg: "登录成功",
@@ -76,12 +76,12 @@ pub fn authenticate<'a>(
         email: "".to_string(),
     };
 
-    let authSession =
+    let auth_session =
         Cookie::build("sessions_auth".to_owned(), serde_json::to_string(user).unwrap())
             .path("/")
             .finish();
 
-    cookies.add_private(authSession);
+    cookies.add_private(auth_session);
 
     return Json(LoginRespJson {
         code: 0,

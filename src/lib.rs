@@ -42,6 +42,11 @@ pub mod view_model {
     pub mod login_resp;
 }
 
+pub mod util {
+    pub mod file_util;
+    pub mod template_util;
+}
+
 pub mod config;
 pub mod dict;
 pub mod models;

@@ -1,16 +1,16 @@
-use rocket::http::{ContentType, Status};
-use rocket_contrib::templates::Template;
-use rocket_contrib::serve::StaticFiles;
 use std::collections::HashMap;
-use std::path::PathBuf;
-use std::io::Cursor;
 use std::ffi::OsStr;
+use std::io::Cursor;
+use std::path::PathBuf;
 
-use rust_embed::RustEmbed;
+use rocket::http::{ContentType, Status};
 use rocket::response;
+use rocket_contrib::serve::StaticFiles;
+use rocket_contrib::templates::Template;
+use rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]
-#[folder = "src/resource/"]
+#[folder = "resources/static"]
 struct Asset;
 
 #[get("/static/<file..>")]

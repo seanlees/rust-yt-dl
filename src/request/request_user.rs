@@ -4,8 +4,8 @@ use rocket::outcome::Outcome::{Failure, Success};
 use rocket::request;
 use rocket::request::{FromRequest, Outcome, Request};
 use rocket::response::Redirect;
+use serde::{Deserialize, ser, Serialize};
 use serde::ser::SerializeStruct;
-use serde::{ser, Deserialize, Serialize};
 
 use crate::controller::login;
 

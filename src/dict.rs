@@ -1,3 +1,3 @@
-pub static listTypeVideo: &str = "video";
-pub static listTypeAudio: &str = "audio";
+pub static LIST_TYPE_VIDEO: &str = "video";
+pub static LIST_TYPE_AUDIO: &str = "audio";
 
