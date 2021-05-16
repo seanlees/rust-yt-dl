@@ -1,12 +1,12 @@
-use std::collections::HashMap;
+
 use std::ffi::OsStr;
 use std::io::Cursor;
 use std::path::PathBuf;
 
 use rocket::http::{ContentType, Status};
 use rocket::response;
-use rocket_contrib::serve::StaticFiles;
-use rocket_contrib::templates::Template;
+
+
 use rust_embed::RustEmbed;
 
 #[derive(RustEmbed)]

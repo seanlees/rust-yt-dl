@@ -1,13 +1,7 @@
-use rocket::http::{Cookies, Status};
-use rocket::outcome::IntoOutcome;
-use rocket::outcome::Outcome::{Failure, Success};
-use rocket::request;
-use rocket::request::{FromRequest, Outcome, Request};
-use rocket::response::Redirect;
-use serde::{Deserialize, ser, Serialize};
+use serde::{Deserialize, ser};
 use serde::ser::SerializeStruct;
 
-use crate::controller::login;
+
 
 #[derive(Debug, Deserialize)]
 pub struct User {

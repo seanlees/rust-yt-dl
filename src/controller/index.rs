@@ -1,6 +1,6 @@
 use crate::request::authenticated_user::AuthenticatedUser;
-use crate::request::request_user::User;
-use rocket::response::Redirect;
+
+
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
 use rocket::State;

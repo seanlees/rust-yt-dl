@@ -1,19 +1,19 @@
-use std::collections::HashMap;
+
 
 use rocket::http::{Cookie, Cookies};
 use rocket::request::Form;
-use rocket::response::{Flash, Redirect};
+use rocket::response::{Redirect};
 use rocket::State;
 use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
 use rocket_contrib::templates::tera::Context;
-use serde::{Deserialize, ser, Serializer};
-use serde::ser::SerializeStruct;
+use serde::{Deserialize};
+
 use serde::Serialize;
-use serde_json::json;
+
 
 use crate::config::ConfyConfig;
-use crate::DbConn;
+
 use crate::request::authenticated_user::{AnonymousUser, AuthenticatedUser};
 use crate::request::request_user::User;
 use crate::view_model::login_form::LoginForm;
@@ -27,7 +27,7 @@ pub struct LoginRespJson<'a> {
 }
 
 #[get("/login")]
-pub fn login(user: AnonymousUser, mut cookies: Cookies) -> Template {
+pub fn login(user: AnonymousUser, _cookies: Cookies) -> Template {
     let mut context = Context::new();
     context.insert("user", &user);
     Template::render("login", &context)
@@ -35,7 +35,7 @@ pub fn login(user: AnonymousUser, mut cookies: Cookies) -> Template {
 
 #[post("/login", data = "<form>")]
 pub fn authenticate<'a>(
-    user: AnonymousUser,
+    _user: AnonymousUser,
     cfg: State<ConfyConfig>,
     form: Form<LoginForm>,
     mut cookies: Cookies,
@@ -94,7 +94,7 @@ pub fn authenticate<'a>(
 }
 
 #[get("/logout")]
-pub fn logout<'a>(user: AuthenticatedUser, mut cookies: Cookies) -> Redirect {
+pub fn logout<'a>(_user: AuthenticatedUser, mut cookies: Cookies) -> Redirect {
     cookies.remove_private(Cookie::named("sessions_auth"));
     Redirect::to(uri!(login))
 }

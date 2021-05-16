@@ -1,7 +1,7 @@
 use std::{fs, io, path::PathBuf};
 use std::path::Path;
-use fs_extra::dir;
-use std::error::Error;
+
+
 
 pub fn dir_size(path: impl Into<PathBuf>) -> io::Result<u64> {
     fn dir_size(mut dir: fs::ReadDir) -> io::Result<u64> {

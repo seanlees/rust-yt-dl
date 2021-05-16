@@ -1,7 +1,7 @@
-use diesel::{self, prelude::*, sql_query};
+use diesel::{self, prelude::*};
 
 use crate::schema::dl_info;
-use crate::schema::dl_info::dsl::{completed as task_completed, dl_info as all_dl_info, dl_type};
+use crate::schema::dl_info::dsl::{completed as task_completed, dl_info as all_dl_info};
 
 #[table_name = "dl_info"]
 #[derive(Serialize, Queryable, Insertable, Debug, Clone)]
@@ -30,7 +30,7 @@ impl DlInfo {
         res.unwrap()
     }
 
-    pub fn insert(todo: Todo, conn: &SqliteConnection) -> bool {
+    pub fn insert(_todo: Todo, conn: &SqliteConnection) -> bool {
         let t = DlInfo {
             id: None,
             description: None,

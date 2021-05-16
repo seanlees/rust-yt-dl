@@ -1,10 +1,10 @@
-use std::collections::HashMap;
 
-use rocket_contrib::databases::diesel::{RunQueryDsl, sql_query};
+
+
 use rocket_contrib::templates::Template;
 use rocket_contrib::templates::tera::Context;
 
-use crate::{DbConn, dict};
+use crate::{DbConn};
 use crate::dict::LIST_TYPE_VIDEO;
 use crate::models::DlInfo;
 use crate::request::authenticated_user::AuthenticatedUser;

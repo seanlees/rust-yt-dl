@@ -10,7 +10,7 @@ fn main() -> Result<(), confy::ConfyError> {
     println!("The configuration is:");
     println!("{:#?}", cfg);
 
-    let mut a = "ss";
+    let a = "ss";
     let b = format!("{0}{1}", a, "b");
     println!("{:?}", b);
 

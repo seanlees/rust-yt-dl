@@ -10,14 +10,9 @@ extern crate rocket_contrib;
 extern crate serde_derive;
 
 use std::collections::HashMap;
-use std::ffi::OsStr;
-use std::io::Cursor;
-use std::path::PathBuf;
 
 use rocket::{Catcher, get, Request, response, routes};
-use rocket::error::LaunchError;
-use rocket::http::{ContentType, Status};
-use rocket::response::{content, Redirect, Responder};
+
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 
